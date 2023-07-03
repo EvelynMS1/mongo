@@ -4,10 +4,11 @@ const { Thought, User, reactionSchema } = require("../models");
 module.exports = {
   async getAllThoughts(req, res) {
     try {
-      const allThoughts = await Though.find();
+      const allThoughts = await Thought.find();
       res.json(allThoughts);
     } catch (err) {
-      resizeBy.status(500).json(err);
+      console.log(err);
+      res.status(500).json(err);
     }
   },
   // get thought by id
@@ -27,6 +28,14 @@ module.exports = {
   async createThought(req, res) {
     try {
       const thought = await Thought.create(req.body);
+      const user = await User.findOneAndUpdate(
+        { username: thought.username },
+        { $push: { thoughts: thought._id } },
+        { new: true }
+      );
+      if (!user) {
+        console.log("User not found!");
+      }
       res.json(thought);
     } catch (err) {
       res.status(500).json(err);
