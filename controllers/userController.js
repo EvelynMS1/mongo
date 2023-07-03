@@ -4,7 +4,7 @@ module.exports = {
   async getAllUsers(req, res) {
     try {
       const users = await User.find();
-      resizeBy.json(users);
+      res.json(users);
     } catch (err) {
       res.status.json(err);
     }
