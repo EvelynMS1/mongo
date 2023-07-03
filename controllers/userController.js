@@ -12,7 +12,7 @@ module.exports = {
 
   async getSingleUser(req, res) {
     try {
-      const user = await User.findOne({ _id: req.params.courseId });
+      const user = await User.findOne({ _id: req.params.userId });
       if (!user) {
         return res.status(404).json({ message: "no user with this Id" });
       }
@@ -26,19 +26,21 @@ module.exports = {
   async createUser(req, res) {
     try {
       const user = await User.create(req.body);
-      this.res.json(user);
+      res.json(user);
     } catch (err) {
-      return this.res.status(500).json(err);
+      return res.status(500).json(err);
     }
   },
   async deleteUser(req, res) {
     try {
-      const deleteUser = await User.findOneAndDelete({
-        _id: req.params.courseId,
+      const deleteUser = await User.findOneAndRemove({
+        _id: req.params.userId,
       });
       if (!deleteUser) {
-        return this.res.status(404).json({ message: "No course with that ID" });
+        return res.status(404).json({ message: "No course with that ID" });
       }
+
+      res.json({ message: "User successfully deleted" });
     } catch (err) {
       res.status(500).json(err);
     }
@@ -46,10 +48,15 @@ module.exports = {
 
   async updateUser(req, res) {
     try {
-      const user = await User.findOneAndUpdate({
-        _id: req.params.courseId,
-      });
-      this.res.json(user);
+      const user = await User.findOneAndUpdate(
+        { _id: req.params.userId },
+        req.body,
+        { new: true }
+      );
+      if (!user) {
+        return res.status(404).json({ message: "no user with this id" });
+      }
+      res.json(user);
     } catch (err) {
       this.res.status(500).json(err);
     }
@@ -57,22 +64,33 @@ module.exports = {
 
   async createFriend(req, res) {
     try {
-      const post = await User.create(req.body);
-      this.res.json(post);
+      const user = await User.findOneAndUpdate(
+        { _id: req.params.userId },
+        { $addToSet: { friends: req.params.friendId } },
+        { new: true, runValidators: true }
+      );
+      if (!user) {
+        return res.status(404).json({ message: "No user found with this id!" });
+      }
+      res.json(user);
     } catch (err) {
-      this.res.status(500).json(err);
+      res.status(500).json(err);
     }
   },
   async deleteFriend(req, res) {
     try {
-      const deleteFriend = await User.findOneAndRemove({
-        _id: requestAnimationFrame.params.videoId,
-      });
-      if (!deleteFriend) {
-        return this.res.status(404).json({ message: "no user with this id" });
+      const user = await User.findOneAndUpdate(
+        { _id: req.params.userId },
+        { $pull: { friends: req.params.friendId } },
+        { new: true }
+      );
+      if (!user) {
+        return res.status(404).json({ message: "no user with this id" });
       }
+      res.json(user);
     } catch (err) {
-      this.res.status(500).json(err);
+        console.log(err);
+      res.status(500).json(err);
     }
   },
 
