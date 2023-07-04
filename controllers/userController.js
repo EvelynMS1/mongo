@@ -3,7 +3,7 @@ const { Thought, User, reactionSchema } = require("../models");
 module.exports = {
   async getAllUsers(req, res) {
     try {
-      const users = await User.find();
+      const users = await User.find().populate('thoughts');
       res.json(users);
     } catch (err) {
       res.status.json(err);
@@ -58,7 +58,7 @@ module.exports = {
       }
       res.json(user);
     } catch (err) {
-      this.res.status(500).json(err);
+      res.status(500).json(err);
     }
   },
 

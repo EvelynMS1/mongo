@@ -1,10 +1,10 @@
-const { Thought, User, reactionSchema } = require("../models");
+const { Thought, User} = require("../models");
 
 //getAllThoughts
 module.exports = {
   async getAllThoughts(req, res) {
     try {
-      const allThoughts = await Thought.find();
+      const allThoughts = await Thought.find().populate('reactions');
       res.json(allThoughts);
     } catch (err) {
       console.log(err);
@@ -14,7 +14,7 @@ module.exports = {
   // get thought by id
   async getSingleThought(req, res) {
     try {
-      const thought = await Thoughgt.findOne({ id: req.params.userId });
+      const thought = await Thought.findOne({ id: req.params.thoughtId });
       if (!thought) {
         return res.status(404).json({ message: "No thought with that ID" });
       }
@@ -45,9 +45,11 @@ module.exports = {
   //updateThought
   async updateThought(req, res) {
     try {
-      const thought = await Thought.findOneAndUpdate({
-        _id: req.params.videoId,
-      });
+      const thought = await Thought.findOneAndUpdate(
+        { _id: req.params.thoughtId },
+        req.body,
+        { new: true }
+      );
       if (!thought) {
         return res.status(404).json({ message: "no video with this id" });
       }
@@ -61,17 +63,19 @@ module.exports = {
   async deleteThought(req, res) {
     try {
       const deleteThought = await Thought.findOneAndRemove({
-        _id: req.params.thoughtsId,
+        _id: req.params.thoughtId,
       });
       if (!deleteThought) {
         return res.status(404).json({ message: "no thought with this id" });
       }
+      res.json(deleteThought);
     } catch (err) {
       res.status(500).json(err);
     }
   },
   //   createReaction
   async createReaction(req, res) {
+    console.log(req.body);
     try {
       const thought = await Thought.findOneAndUpdate(
         { _id: req.params.thoughtId },
@@ -86,6 +90,7 @@ module.exports = {
       }
       res.json(thought);
     } catch (err) {
+      console.log(err);
       res.status(500).json(err);
     }
   },
