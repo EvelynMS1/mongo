@@ -7,7 +7,6 @@ module.exports = {
       const allThoughts = await Thought.find().populate('reactions');
       res.json(allThoughts);
     } catch (err) {
-      console.log(err);
       res.status(500).json(err);
     }
   },
@@ -90,7 +89,6 @@ module.exports = {
       }
       res.json(thought);
     } catch (err) {
-      console.log(err);
       res.status(500).json(err);
     }
   },

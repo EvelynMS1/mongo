@@ -1,4 +1,4 @@
-// const { Schema } = require("mongoose");
+
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 //defining the properties values, types (blueprint) defining the structure and properties
@@ -25,6 +25,6 @@ const reactionSchema = new Schema({
   },
 });
 
-// const Reaction = model('reaction', reactionSchema);
+
 
 module.exports = reactionSchema;
