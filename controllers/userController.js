@@ -1,4 +1,4 @@
-const { Thought, User, reactionSchema } = require("../models");
+const { Thought, User} = require("../models");
 
 module.exports = {
   async getAllUsers(req, res) {
@@ -27,6 +27,7 @@ module.exports = {
       const user = await User.create(req.body);
       res.json(user);
     } catch (err) {
+      console.log(err);
       return res.status(500).json(err);
     }
   },

@@ -1,9 +1,12 @@
 # README Generator ![license](https://img.shields.io/badge/license-MIT-blue.svg)
 
 ## Description
-    
+
 The motivation for this project for the purpose of using mongoosee, the makeup of the backend.This project was built in order for puts gets and posts with mongoose. It solves the problem of extracting data from the backend. I learned to use schemas and models and what role they play when using mongoose for the backend.
-## Table of Contents 
+![NoSQL Request](./assets/pics/Screenshot%202023-07-03%20194252.jpg)
+[NoSQL Video](https://docs.google.com/presentation/d/11ZJbfvaKBikijBQOk4gertkTU7UbHkQ-BCCGU_RxDro/edit?usp=sharing)
+
+## Table of Contents
 
 - [Installation](#installation)
 - [Usage](#usage)
@@ -17,36 +20,32 @@ The motivation for this project for the purpose of using mongoosee, the makeup o
 
 ## Installation
 
- n/a
+n/a
 
 ## Usage
 
- n/a
+n/a
 
 ## Credits
 
-
- n/a
+n/a
 
 ## License
 
- This project is licensed under the terms of the MIT license
+This project is licensed under the terms of the MIT license
 
- 
 ## Badges
- MIT license
 
+MIT license
 
 ## Features
-
-
-
 
 ## How-to-Contribute
 
 ## Tests
 
 ## Questions
+
 -[Github](https://github.com/EvelynMS1)
 
 -montessobalevelyn@gmail.com
